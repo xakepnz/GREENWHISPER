@@ -8,17 +8,17 @@ This is a simple shell script that extracts certain strings from a file, these c
 <b>[+] Language:</b> Bash<br />
 <b>[+] OS:</b> Linux<br />
 
+## HTTP Extraction:
+![alt text](https://i.imgur.com/oZynx0V.gif "Greenwhisper HTTP")
+
+<b>MD5 Extraction:</b> - https://i.imgur.com/9rxJEaQ.gif
+
 ## Requirements:
 
 [+] strings<br />
 [+] hexdump<br />
 [+] egrep<br />
 [+] exiftool<br />
-
-## HTTP Extraction:
-![alt text](https://i.imgur.com/oZynx0V.gif "Greenwhisper HTTP")
-
-<a href="https://i.imgur.com/9rxJEaQ.gif"<b>MD5 Extraction</b></a>
 
 ## Searches for:
 
