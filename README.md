@@ -16,7 +16,7 @@ This is a simple shell script that extracts certain strings from a file, these c
 ## Requirements:
 
 [+] strings<br />
-[+] hexdump<br />
+[+] xxd<br />
 [+] egrep<br />
 [+] exiftool<br />
 
@@ -33,7 +33,7 @@ This is a simple shell script that extracts certain strings from a file, these c
 
 ## Creates:
 [+] Exif data pulled from the file<br />
-[+] Hexdump of the file for manual analysis<br />
+[+] Hex dump of the file for manual analysis<br />
 [+] Determines what type of file it is<br />
 
 ## Install:
