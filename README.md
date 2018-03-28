@@ -15,11 +15,10 @@ This is a simple shell script that extracts certain strings from a file, these c
 [+] egrep<br />
 [+] exiftool<br />
 
-## MD5 Extraction:
-![alt text](https://i.imgur.com/9rxJEaQ.gif "Greenwhisper MD5")
-
 ## HTTP Extraction:
 ![alt text](https://i.imgur.com/oZynx0V.gif "Greenwhisper HTTP")
+
+<a href="https://i.imgur.com/9rxJEaQ.gif"<b>MD5 Extraction</b></a>
 
 ## Searches for:
 
