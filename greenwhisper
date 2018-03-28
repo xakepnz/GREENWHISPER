@@ -43,13 +43,13 @@ echo '[+] Processing:' $1
 # Pre-requisites:
 #########################################################
 printf '\n[+] Checking pre-requisites...\n'
-if ! hash xxd 2>/dev/null
+if ! hash hexdump 2>/dev/null
 then
-    echo '[!] xxd is not installed.'
+    echo '[!] hexdump is not installed.'
     printf '[!] Exiting...\n'
     exit
 fi
-echo '    [*] xxd installed'
+echo '    [*] Hexdump installed'
 if ! hash strings 2>/dev/null
 then
     echo '[!] strings is not installed.'
@@ -81,7 +81,7 @@ exiftool $1 > output/exifdata
 printf '\n    [*] Extracting file info, piping to: "output/file_info"'
 file $1 > output/file_info
 printf '\n    [*] Extracting MD5 encoded strings, piping to: "output/md5_strings"'
-strings $1 | egrep --only-matching "\b[0-9a-f]{3,}\b" > output/md5_strings
+strings $1 | egrep -o "\b[0-9a-f]{3,}\b" > output/md5_strings
 printf '\n    [*] Extracting http/s or FTP URLs, piping to: "output/http_strings"'
 strings $1 | egrep "^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$" > output/http_strings
 printf '\n    [*] Extracting ASCII words, hostnames and domains, piping to: "output/ascii_strings"'
@@ -92,12 +92,14 @@ printf '\n    [*] Extracting Bitcoin addresses, piping to: "output/bitcoin_addre
 strings $1 | egrep "^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$" > output/bitcoin_addresses
 printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"\n'
 strings $1 | egrep "^[-+]?\d+$" > output/integers
+printf '\n.   [*] Extracting email addresses, piping to: "output/email_addresses"'
+strings $1 | egrep -o "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" > output/email_addresses
 #printf '\n    [*] Extracting binary strings, piping to: "output/binary_strings"'
 # yet to do
 #printf '\n    [*] Extracting hexidecimal chars, piping to: "output/hex_strings"'
 # yet to do
-#printf '\n    [*] Extracting Base64 encoded strings, piping to: "output/base64_strings"'
-# yet to do
+printf '\n    [*] Extracting Base64 encoded strings, piping to: "output/base64_strings"'
+strings $1 | egrep -o "^[-A-Za-z0-9+=]{1,50}|=[^=]|={3,}$" > output/base64_strings
 #########################################################
 # Print output directory to terminal:
 #########################################################
