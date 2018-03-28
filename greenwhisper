@@ -43,13 +43,13 @@ echo '[+] Processing:' $1
 # Pre-requisites:
 #########################################################
 printf '\n[+] Checking pre-requisites...\n'
-if ! hash hexdump 2>/dev/null
+if ! hash xxd 2>/dev/null
 then
-    echo '[!] hexdump is not installed.'
+    echo '[!] xxd is not installed.'
     printf '[!] Exiting...\n'
     exit
 fi
-echo '    [*] Hexdump installed'
+echo '    [*] xxd installed'
 if ! hash strings 2>/dev/null
 then
     echo '[!] strings is not installed.'
@@ -74,8 +74,8 @@ echo '    [*] Grep installed'
 printf '\n[+] Running GREENWHISPER...'
 printf '\n    [*] Creating folder: "output"'
 mkdir -p output
-printf '\n    [*] Generating a hex dump, piping to: "output/hexdump"'
-hexdump -C $1 > output/hexdump
+printf '\n    [*] Generating a hex dump, piping to: "output/hexdump_xxd"'
+xxd $1 > output/hexdump_xxd
 printf '\n    [*] Extracting exif data, piping to: "output/exifdata"'
 exiftool $1 > output/exifdata
 printf '\n    [*] Extracting file info, piping to: "output/file_info"'
@@ -86,7 +86,7 @@ printf '\n    [*] Extracting http/s or FTP URLs, piping to: "output/http_strings
 strings $1 | egrep "^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$" > output/http_strings
 printf '\n    [*] Extracting ASCII words, hostnames and domains, piping to: "output/ascii_strings"'
 strings $1 | egrep "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" > output/ascii_strings
-printf '\n    [*] Looking for IPV4 addresses, piping to: "output/ipv4_strings"'
+printf '\n    [*] Extracting IPV4 addresses, piping to: "output/ipv4_strings"'
 strings $1 | egrep "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" > output/ipv4_strings
 printf '\n    [*] Extracting Bitcoin addresses, piping to: "output/bitcoin_addresses"'
 strings $1 | egrep "^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$" > output/bitcoin_addresses
