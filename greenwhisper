@@ -92,7 +92,7 @@ printf '\n    [*] Extracting Bitcoin addresses, piping to: "output/bitcoin_addre
 strings $1 | egrep "^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$" > output/bitcoin_addresses
 printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"\n'
 strings $1 | egrep "^[-+]?\d+$" > output/integers
-printf '\n.   [*] Extracting email addresses, piping to: "output/email_addresses"'
+printf '\n    [*] Extracting email addresses, piping to: "output/email_addresses"'
 strings $1 | egrep -o "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" > output/email_addresses
 #printf '\n    [*] Extracting binary strings, piping to: "output/binary_strings"'
 # yet to do
