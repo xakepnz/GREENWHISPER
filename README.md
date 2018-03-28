@@ -15,6 +15,12 @@ This is a simple shell script that extracts certain strings from a file, these c
 [+] egrep<br />
 [+] exiftool<br />
 
+## HTTP Extraction:
+![alt text](https://i.imgur.com/oZynx0V.gif "Greenwhisper")
+
+## MD5 Extraction:
+![alt text](https://i.imgur.com/9rxJEaQ.gif "Greenwhisper")
+
 ## Searches for:
 
 [+] IPV4 Addresses<br />
