@@ -42,7 +42,7 @@ echo '[+] Processing:' $1
 #########################################################
 # Pre-requisites:
 #########################################################
-printf '\n[+] Checking prerequisites...\n'
+printf '\n[+] Checking pre-requisites...\n'
 if ! hash hexdump 2>/dev/null
 then
     echo '[!] hexdump is not installed.'
@@ -90,7 +90,7 @@ printf '\n    [*] Looking for IPV4 addresses, piping to: "output/ipv4_strings"'
 strings $1 | egrep "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" > output/ipv4_strings
 printf '\n    [*] Extracting Bitcoin addresses, piping to: "output/bitcoin_addresses"'
 strings $1 | egrep "^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$" > output/bitcoin_addresses
-printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"'
+printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"\n'
 strings $1 | egrep "^[-+]?\d+$" > output/integers
 #printf '\n    [*] Extracting binary strings, piping to: "output/binary_strings"'
 # yet to do
@@ -101,7 +101,7 @@ strings $1 | egrep "^[-+]?\d+$" > output/integers
 #########################################################
 # Print output directory to terminal:
 #########################################################
-printf '\n[+] Listing contents of output to terminal...\n'
+printf '\n[+] Listing contents of output to terminal...\n\n'
 ls -alh output/
 printf '\n'
 #########################################################
