@@ -15,6 +15,22 @@ This is a simple shell script that extracts certain strings from a file, these c
 [+] egrep<br />
 [+] exiftool<br />
 
+## Searches for:
+
+[+] IPV4 Addresses<br />
+[+] MD5 Hashes<br />
+[+] HTTP/HTTPS/FTP URL's<br />
+[+] Bitcoin Addresses<br />
+[+] ASCII Words, such as domains/hostnames/words in general<br />
+[+] Base64 Encoded strings<br />
+[+] An array of integers<br />
+[+] Binary strings<br />
+
+## Creates:
+[+] Exif data pulled from the file<br />
+[+] Hexdump of the file for manual analysis<br />
+[+] Determines what type of file it is<br />
+
 ## Install:
 
 ```
@@ -29,7 +45,7 @@ $ cd GREENWHISPER
 $ chmod +x greenwhisper
 ```
 
-# Usage:
+## Usage:
 
 ```
 $ ./greenwhisper my-file.jpg
