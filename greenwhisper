@@ -45,11 +45,11 @@ echo '[+] Processing:' $1
 printf '\n[+] Checking pre-requisites...\n'
 if ! hash hexdump 2>/dev/null
 then
-    echo '[!] hexdump is not installed.'
+    echo '[!] xxd is not installed.'
     printf '[!] Exiting...\n'
     exit
 fi
-echo '    [*] Hexdump installed'
+echo '    [*] xxd installed'
 if ! hash strings 2>/dev/null
 then
     echo '[!] strings is not installed.'
@@ -58,7 +58,7 @@ fi
 echo '    [*] Strings installed'
 if ! hash egrep 2>/dev/null
 then
-    echo '[!] egrep is not installed.'
+    echo '[!] EGrep is not installed.'
     printf '[!] Exiting...\n'
 fi
 echo '    [*] EGrep installed'
@@ -67,7 +67,7 @@ then
     echo '[!] exiftool is not installed.'
     printf '[!] Exiting...\n'
 fi
-echo '    [*] Grep installed'
+echo '    [*] Exiftool installed'
 #########################################################
 # Find the hidden strings:
 #########################################################
@@ -90,15 +90,17 @@ printf '\n    [*] Extracting IPV4 addresses, piping to: "output/ipv4_strings"'
 strings $1 | egrep "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" > output/ipv4_strings
 printf '\n    [*] Extracting Bitcoin addresses, piping to: "output/bitcoin_addresses"'
 strings $1 | egrep "^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$" > output/bitcoin_addresses
-printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"\n'
+printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"'
 strings $1 | egrep "^[-+]?\d+$" > output/integers
 printf '\n    [*] Extracting email addresses, piping to: "output/email_addresses"'
 strings $1 | egrep -o "\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b" > output/email_addresses
 #printf '\n    [*] Extracting binary strings, piping to: "output/binary_strings"'
 # yet to do
 #printf '\n    [*] Extracting hexidecimal chars, piping to: "output/hex_strings"'
-# yet to do
-printf '\n    [*] Extracting Base64 encoded strings, piping to: "output/base64_strings"'
+#strings $1 | egrep -o [A-Fa-f0-9] > output/hex_strings
+printf '\n    [*] Extracting URL Encoded strings, piping to: "output/url_encoding"'
+strings $1 | egrep "(?!%22)[!@#$%^&*]" > output/url_encoding
+printf '\n    [*] Extracting Base64 encoded strings, piping to: "output/base64_strings"\n'
 strings $1 | egrep -o "^[-A-Za-z0-9+=]{1,50}|=[^=]|={3,}$" > output/base64_strings
 #########################################################
 # Print output directory to terminal:
