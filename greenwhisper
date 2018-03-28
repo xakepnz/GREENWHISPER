@@ -1,0 +1,107 @@
+#!/bin/bash
+# Name: GREENWHISPER
+# Author: xakepnz (https://github.com/xakepnz)
+# Description: This script checks to see if there are any hidden strings in a file.
+############################################################################################
+echo ''
+echo '            /######  /#######  /######## /######## /##   /##
+           /##__  ##| ##__  ##| ##_____/| ##_____/| ### | ##
+          | ##  \__/| ##  \ ##| ##      | ##      | ####| ##
+          | ## /####| #######/| #####   | #####   | ## ## ##
+          | ##|_  ##| ##__  ##| ##__/   | ##__/   | ##  ####
+          | ##  \ ##| ##  \ ##| ##      | ##      | ##\  ###
+          |  ######/| ##  | ##| ########| ########| ## \  ##
+           \______/ |__/  |__/|________/|________/|__/  \__/
+
+ /##      /## /##   /## /######  /######  /#######  /######## /####### 
+| ##  /# | ##| ##  | ##|_  ##_/ /##__  ##| ##__  ##| ##_____/| ##__  ##
+| ## /###| ##| ##  | ##  | ##  | ##  \__/| ##  \ ##| ##      | ##  \ ##
+| ##/## ## ##| ########  | ##  |  ###### | #######/| #####   | #######/
+| ####_  ####| ##__  ##  | ##   \____  ##| ##____/ | ##__/   | ##__  ##
+| ###/ \  ###| ##  | ##  | ##   /##  \ ##| ##      | ##      | ##  \ ##
+| ##/   \  ##| ##  | ## /######|  ######/| ##      | ########| ##  | ##
+|__/     \__/|__/  |__/|______/ \______/ |__/      |________/|__/  |__/
+
+            Link: https://www.github.com/xakepnz/GREENWHISPER
+          ------------------------------------------------------'
+#########################################################
+# User Input:
+#########################################################
+echo ''
+if [[ -z $1 ]]; then
+	echo '[!] No input given! Try: greenwhisper file.png'
+	printf '[!] Exiting...\n'
+	exit
+fi
+if [[ ! -e $1 ]] 2>/dev/null; then
+    echo '[!] "'$1'"' 'Not found! - Is the path correct?'
+    printf '[!] Exiting...\n'
+    exit
+fi
+echo '[+] Processing:' $1
+#########################################################
+# Pre-requisites:
+#########################################################
+printf '\n[+] Checking prerequisites...\n'
+if ! hash hexdump 2>/dev/null
+then
+    echo '[!] hexdump is not installed.'
+    printf '[!] Exiting...\n'
+    exit
+fi
+echo '    [*] Hexdump installed'
+if ! hash strings 2>/dev/null
+then
+    echo '[!] strings is not installed.'
+    printf '[!] Exiting...\n'
+fi
+echo '    [*] Strings installed'
+if ! hash egrep 2>/dev/null
+then
+    echo '[!] egrep is not installed.'
+    printf '[!] Exiting...\n'
+fi
+echo '    [*] EGrep installed'
+if ! hash exiftool 2>/dev/null
+then
+    echo '[!] exiftool is not installed.'
+    printf '[!] Exiting...\n'
+fi
+echo '    [*] Grep installed'
+#########################################################
+# Find the hidden strings:
+#########################################################
+printf '\n[+] Running GREENWHISPER...'
+printf '\n    [*] Creating folder: "output"'
+mkdir -p output
+printf '\n    [*] Generating a hex dump, piping to: "output/hexdump"'
+hexdump -C $1 > output/hexdump
+printf '\n    [*] Extracting exif data, piping to: "output/exifdata"'
+exiftool $1 > output/exifdata
+printf '\n    [*] Extracting file info, piping to: "output/file_info"'
+file $1 > output/file_info
+printf '\n    [*] Extracting MD5 encoded strings, piping to: "output/md5_strings"'
+strings $1 | egrep --only-matching "\b[0-9a-f]{3,}\b" > output/md5_strings
+printf '\n    [*] Extracting http/s or FTP URLs, piping to: "output/http_strings"'
+strings $1 | egrep "^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$" > output/http_strings
+printf '\n    [*] Extracting ASCII words, hostnames and domains, piping to: "output/ascii_strings"'
+strings $1 | egrep "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$" > output/ascii_strings
+printf '\n    [*] Looking for IPV4 addresses, piping to: "output/ipv4_strings"'
+strings $1 | egrep "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$" > output/ipv4_strings
+printf '\n    [*] Extracting Bitcoin addresses, piping to: "output/bitcoin_addresses"'
+strings $1 | egrep "^[13][a-km-zA-HJ-NP-Z0-9]{26,33}$" > output/bitcoin_addresses
+printf '\n    [*] Extracting integers, this includes hexidecimal strings, piping to: "output/integers"'
+strings $1 | egrep "^[-+]?\d+$" > output/integers
+#printf '\n    [*] Extracting binary strings, piping to: "output/binary_strings"'
+# yet to do
+#printf '\n    [*] Extracting hexidecimal chars, piping to: "output/hex_strings"'
+# yet to do
+#printf '\n    [*] Extracting Base64 encoded strings, piping to: "output/base64_strings"'
+# yet to do
+#########################################################
+# Print output directory to terminal:
+#########################################################
+printf '\n[+] Listing contents of output to terminal...\n'
+ls -alh output/
+printf '\n'
+#########################################################
