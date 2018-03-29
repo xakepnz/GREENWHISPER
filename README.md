@@ -50,6 +50,28 @@ $ cd GREENWHISPER
 $ chmod +x greenwhisper
 ```
 
+## Debian/Ubuntu Install:
+
+```
+$ git clone https://github.com/xakepnz/GREENWHISPER.git
+```
+
+```
+$ cd GREENWHISPER
+```
+
+```
+$ chmod +x greenwhisper
+```
+
+```
+$ chmod +x greenwhisper && chmod +x install.sh
+```
+
+```
+$ ./install.sh
+```
+
 ## Usage:
 
 ```
