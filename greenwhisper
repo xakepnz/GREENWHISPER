@@ -31,12 +31,12 @@ echo ''
 if [[ -z $1 ]]; then
 	echo '[!] No input given! Try: greenwhisper file.png'
 	printf '[!] Exiting...\n'
-	exit
+	exit 1
 fi
 if [[ ! -e $1 ]] 2>/dev/null; then
     echo '[!] "'$1'"' 'Not found! - Is the path correct?'
     printf '[!] Exiting...\n'
-    exit
+    exit 1
 fi
 echo '[+] Processing:' $1
 #########################################################
@@ -47,25 +47,28 @@ if ! hash hexdump 2>/dev/null
 then
     echo '[!] xxd is not installed.'
     printf '[!] Exiting...\n'
-    exit
+    exit 1
 fi
 echo '    [*] xxd installed'
 if ! hash strings 2>/dev/null
 then
     echo '[!] strings is not installed.'
     printf '[!] Exiting...\n'
+    exit 1
 fi
 echo '    [*] Strings installed'
 if ! hash egrep 2>/dev/null
 then
     echo '[!] EGrep is not installed.'
     printf '[!] Exiting...\n'
+    exit 1
 fi
 echo '    [*] EGrep installed'
 if ! hash exiftool 2>/dev/null
 then
     echo '[!] exiftool is not installed.'
     printf '[!] Exiting...\n'
+    exit 1
 fi
 echo '    [*] Exiftool installed'
 #########################################################
