@@ -26,6 +26,7 @@ This is a simple shell script that extracts certain strings from a file, these c
 [+] MD5 Hashes<br />
 [+] HTTP/HTTPS/FTP URL's<br />
 [+] Bitcoin Addresses<br />
+[+] Email Addresses<br />
 [+] ASCII Words, such as domains/hostnames/words in general<br />
 [+] Base64 Encoded strings<br />
 [+] An array of integers<br />
