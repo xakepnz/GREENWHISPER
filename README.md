@@ -62,10 +62,6 @@ $ cd GREENWHISPER
 ```
 
 ```
-$ chmod +x greenwhisper
-```
-
-```
 $ chmod +x greenwhisper && chmod +x install.sh
 ```
 
