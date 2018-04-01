@@ -13,9 +13,6 @@ This is a simple shell script that extracts certain strings from a file, these c
 
 <b>MD5 Extraction:</b> - https://i.imgur.com/9rxJEaQ.gif
 
-![alt text](https://i.imgur.com/9rxJEaQ.gif "Greenwhisper MD5")
-
-
 
 ## Requirements:
 
